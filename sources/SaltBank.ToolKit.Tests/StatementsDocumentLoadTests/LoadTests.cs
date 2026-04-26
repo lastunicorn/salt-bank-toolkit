@@ -13,17 +13,17 @@ public class LoadTests
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
-        Assert.Single(result);
+        result.Should().ContainSingle();
 
         BankTransaction transaction = result[0];
-        Assert.Equal(new DateOnly(2026, 2, 1), transaction.Date);
-        Assert.Equal("Shop A", transaction.CounterParty);
-        Assert.Equal("Ref-001", transaction.Reference);
-        Assert.Equal("Card", transaction.Type);
-        Assert.Equal(-15.75, transaction.Amount, 10);
-        Assert.Equal(1200.25, transaction.Balance, 10);
-        Assert.Equal("Groceries", transaction.SpendingCategory);
-        Assert.Equal("Weekly shopping", transaction.Notes);
+        transaction.Date.Should().Be(new DateOnly(2026, 2, 1));
+        transaction.CounterParty.Should().Be("Shop A");
+        transaction.Reference.Should().Be("Ref-001");
+        transaction.Type.Should().Be("Card");
+        transaction.Amount.Should().BeApproximately(-15.75, 1e-10);
+        transaction.Balance.Should().BeApproximately(1200.25, 1e-10);
+        transaction.SpendingCategory.Should().Be("Groceries");
+        transaction.Notes.Should().Be("Weekly shopping");
     }
 
     [Fact]
@@ -33,9 +33,9 @@ public class LoadTests
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
-        Assert.Equal(2, result.Count);
-        Assert.Equal("Ref-001", result[0].Reference);
-        Assert.Equal("Ref-002", result[1].Reference);
+        result.Should().HaveCount(2);
+        result[0].Reference.Should().Be("Ref-001");
+        result[1].Reference.Should().Be("Ref-002");
     }
 
     [Fact]
@@ -45,9 +45,9 @@ public class LoadTests
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
-        Assert.Single(result);
-        Assert.Equal("Store B", result[0].CounterParty);
-        Assert.Equal(-30.5, result[0].Amount, 10);
+        result.Should().ContainSingle();
+        result[0].CounterParty.Should().Be("Store B");
+        result[0].Amount.Should().BeApproximately(-30.5, 1e-10);
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class LoadTests
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
-        Assert.Equal(2, result.Count);
+        result.Should().HaveCount(2);
     }
 
     [Fact]
@@ -67,14 +67,15 @@ public class LoadTests
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
-        Assert.Single(result);
-        Assert.Equal(string.Empty, result[0].Notes);
+        result.Should().ContainSingle();
+        result[0].Notes.Should().BeEmpty();
     }
 
     [Fact]
     public void WhenCsvIsNull_ShouldThrowArgumentNullException()
     {
-        Assert.Throws<ArgumentNullException>(() => StatementsDocument.Load((string)null!));
+        Action action = () => StatementsDocument.Load((string)null!);
+        action.Should().Throw<ArgumentNullException>();
     }
 
     [Theory]
@@ -82,7 +83,8 @@ public class LoadTests
     [InlineData("   ")]
     public void WhenCsvIsEmptyOrWhitespace_ShouldThrowArgumentException(string csv)
     {
-        Assert.Throws<ArgumentException>(() => StatementsDocument.Load(csv));
+        Action action = () => StatementsDocument.Load(csv);
+        action.Should().Throw<ArgumentException>();
     }
 
     [Fact]
@@ -90,7 +92,8 @@ public class LoadTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Assert.Throws<HeaderValidationException>(() => StatementsDocument.Load(csv));
+        Action action = () => StatementsDocument.Load(csv);
+        action.Should().Throw<HeaderValidationException>();
     }
 
     [Fact]
@@ -98,8 +101,9 @@ public class LoadTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        ReaderException exception = Assert.Throws<ReaderException>(() => StatementsDocument.Load(csv));
-        Assert.IsType<FormatException>(exception.InnerException);
+        Action action = () => StatementsDocument.Load(csv);
+        action.Should().Throw<ReaderException>()
+            .WithInnerException<FormatException>();
     }
 
     [Fact]
@@ -107,6 +111,7 @@ public class LoadTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Assert.Throws<TypeConverterException>(() => StatementsDocument.Load(csv));
+        Action action = () => StatementsDocument.Load(csv);
+        action.Should().Throw<TypeConverterException>();
     }
 }
