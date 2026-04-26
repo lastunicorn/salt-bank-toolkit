@@ -17,7 +17,7 @@ public class StatementsDocument : Collection<BankTransaction>
         using StringReader stringReader = new(csv);
         return Load(stringReader);
     }
-    
+
     public static StatementsDocument LoadFile(string filePath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
@@ -25,7 +25,7 @@ public class StatementsDocument : Collection<BankTransaction>
         using StreamReader streamReader = File.OpenText(filePath);
         return Load(streamReader);
     }
-    
+
     public static StatementsDocument Load(Stream stream)
     {
         ArgumentNullException.ThrowIfNull(stream);
@@ -33,7 +33,7 @@ public class StatementsDocument : Collection<BankTransaction>
         using StreamReader streamReader = new(stream);
         return Load(streamReader);
     }
-    
+
     public static StatementsDocument Load(FileInfo fileInfo)
     {
         ArgumentNullException.ThrowIfNull(fileInfo);
@@ -41,14 +41,14 @@ public class StatementsDocument : Collection<BankTransaction>
         using StreamReader streamReader = fileInfo.OpenText();
         return Load(streamReader);
     }
-    
+
     public static StatementsDocument Load(StreamReader streamReader)
     {
         ArgumentNullException.ThrowIfNull(streamReader);
 
         return Load((TextReader)streamReader);
     }
-    
+
     public static StatementsDocument Load(TextReader textReader)
     {
         ArgumentNullException.ThrowIfNull(textReader);
@@ -65,14 +65,14 @@ public class StatementsDocument : Collection<BankTransaction>
             TrimOptions = TrimOptions.Trim,
             PrepareHeaderForMatch = args => args.Header.Trim()
         };
-        
+
         using CsvReader csvReader = new(textReader, csvConfiguration);
         csvReader.Context.RegisterClassMap<BankTransactionMap>();
 
         IEnumerable<BankTransaction> bankTransactions = csvReader.GetRecords<BankTransaction>();
 
         StatementsDocument statementsDocument = [];
-        
+
         foreach (BankTransaction bankTransaction in bankTransactions)
             statementsDocument.Add(bankTransaction);
 
