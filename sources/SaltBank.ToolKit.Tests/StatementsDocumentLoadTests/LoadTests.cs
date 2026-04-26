@@ -81,10 +81,10 @@ public class LoadTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void WhenCsvIsEmptyOrWhitespace_ShouldThrowArgumentException(string csv)
+    public void WhenCsvIsEmptyOrWhitespace_ShouldThrow(string csv)
     {
         Action action = () => StatementsDocument.Load(csv);
-        action.Should().Throw<ArgumentException>();
+        action.Should().Throw<StatementDocumentException>();
     }
 
     [Fact]

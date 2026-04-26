@@ -12,7 +12,11 @@ public class StatementsDocument : Collection<BankTransaction>
 {
     public static StatementsDocument Load(string csv)
     {
-        ArgumentException.ThrowIfNullOrWhiteSpace(csv);
+        if (csv == null)
+            throw new ArgumentNullException(nameof(csv));
+
+        if (string.IsNullOrWhiteSpace(csv))
+            throw new StatementDocumentException("The CSV content cannot be empty or whitespace.");
 
         using StringReader stringReader = new(csv);
         return Load(stringReader);
