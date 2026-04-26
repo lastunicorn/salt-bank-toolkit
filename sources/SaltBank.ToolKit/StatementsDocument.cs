@@ -2,6 +2,7 @@
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
+using CsvHelper.TypeConversion;
 
 namespace DustInTheWind.SaltBank.ToolKit;
 
@@ -87,6 +88,10 @@ public class StatementsDocument : Collection<BankTransaction>
             throw new StatementHeaderException(ex);
         }
         catch (ReaderException ex)
+        {
+            throw new StatementDataException(ex);
+        }
+        catch (TypeConverterException ex)
         {
             throw new StatementDataException(ex);
         }
