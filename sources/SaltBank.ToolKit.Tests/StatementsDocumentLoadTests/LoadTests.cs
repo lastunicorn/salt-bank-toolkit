@@ -1,5 +1,6 @@
 using CsvHelper;
 using CsvHelper.TypeConversion;
+using DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
 
 namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementsDocumentLoadTests;
 
@@ -8,7 +9,7 @@ public class LoadTests
     [Fact]
     public void WhenCsvHasSingleRow_ShouldParseAllFields()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenCsvHasSingleRow_ShouldParseAllFields));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -28,7 +29,7 @@ public class LoadTests
     [Fact]
     public void WhenCsvHasMultipleRows_ShouldPreserveOrder()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenCsvHasMultipleRows_ShouldPreserveOrder));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -40,7 +41,7 @@ public class LoadTests
     [Fact]
     public void WhenHeadersContainWhitespace_ShouldTrimAndParse()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenHeadersContainWhitespace_ShouldTrimAndParse));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -52,7 +53,7 @@ public class LoadTests
     [Fact]
     public void WhenCsvContainsBlankLines_ShouldIgnoreBlankLines()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenCsvContainsBlankLines_ShouldIgnoreBlankLines));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -62,7 +63,7 @@ public class LoadTests
     [Fact]
     public void WhenNotesColumnIsMissing_ShouldUseDefaultNotesValue()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenNotesColumnIsMissing_ShouldUseDefaultNotesValue));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -87,7 +88,7 @@ public class LoadTests
     [Fact]
     public void WhenRequiredHeaderIsMissing_ShouldThrowHeaderValidationException()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenRequiredHeaderIsMissing_ShouldThrowHeaderValidationException));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         Assert.Throws<HeaderValidationException>(() => StatementsDocument.Load(csv));
     }
@@ -95,7 +96,7 @@ public class LoadTests
     [Fact]
     public void WhenDateFormatIsInvalid_ShouldThrowReaderException()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenDateFormatIsInvalid_ShouldThrowReaderException));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         ReaderException exception = Assert.Throws<ReaderException>(() => StatementsDocument.Load(csv));
         Assert.IsType<FormatException>(exception.InnerException);
@@ -104,7 +105,7 @@ public class LoadTests
     [Fact]
     public void WhenNumericValueIsInvalid_ShouldThrowTypeConverterException()
     {
-        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenNumericValueIsInvalid_ShouldThrowTypeConverterException));
+        string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         Assert.Throws<TypeConverterException>(() => StatementsDocument.Load(csv));
     }
