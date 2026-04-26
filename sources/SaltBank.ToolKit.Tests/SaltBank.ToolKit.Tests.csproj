@@ -23,4 +23,8 @@
         <ProjectReference Include="..\SaltBank.ToolKit\SaltBank.ToolKit.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <EmbeddedResource Include="StatementsDocumentLoadTests/*.csv"/>
+    </ItemGroup>
+
 </Project>

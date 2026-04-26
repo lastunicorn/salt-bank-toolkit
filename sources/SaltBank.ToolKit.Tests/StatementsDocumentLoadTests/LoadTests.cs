@@ -8,9 +8,7 @@ public class LoadTests
     [Fact]
     public void WhenCsvHasSingleRow_ShouldParseAllFields()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
-            "01/02/2026,Shop A,Ref-001,Card,-15.75,1200.25,Groceries,Weekly shopping";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenCsvHasSingleRow_ShouldParseAllFields));
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -30,10 +28,7 @@ public class LoadTests
     [Fact]
     public void WhenCsvHasMultipleRows_ShouldPreserveOrder()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
-            "01/02/2026,Shop A,Ref-001,Card,-15.75,1200.25,Groceries,Weekly shopping\n" +
-            "02/02/2026,Employer,Ref-002,Transfer,3000,4200.25,Salary,Monthly salary";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenCsvHasMultipleRows_ShouldPreserveOrder));
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -45,9 +40,7 @@ public class LoadTests
     [Fact]
     public void WhenHeadersContainWhitespace_ShouldTrimAndParse()
     {
-        string csv =
-            " Date , Counter Party , Reference , Type , Amount (RON) , Balance (RON) , Spending Category , Notes \n" +
-            "03/02/2026,Store B,Ref-003,Card,-30.5,1169.75,Shopping,New shoes";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenHeadersContainWhitespace_ShouldTrimAndParse));
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -59,10 +52,7 @@ public class LoadTests
     [Fact]
     public void WhenCsvContainsBlankLines_ShouldIgnoreBlankLines()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n\n" +
-            "04/02/2026,Store C,Ref-004,Card,-12,1157.75,Food,Lunch\n\n" +
-            "05/02/2026,Store D,Ref-005,Card,-8,1149.75,Food,Coffee\n";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenCsvContainsBlankLines_ShouldIgnoreBlankLines));
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -72,9 +62,7 @@ public class LoadTests
     [Fact]
     public void WhenNotesColumnIsMissing_ShouldUseDefaultNotesValue()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category\n" +
-            "06/02/2026,Store E,Ref-006,Card,-20,1129.75,Bills";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenNotesColumnIsMissing_ShouldUseDefaultNotesValue));
 
         StatementsDocument result = StatementsDocument.Load(csv);
 
@@ -99,9 +87,7 @@ public class LoadTests
     [Fact]
     public void WhenRequiredHeaderIsMissing_ShouldThrowHeaderValidationException()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Notes\n" +
-            "07/02/2026,Store F,Ref-007,Card,-10,1119.75,Missing category";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenRequiredHeaderIsMissing_ShouldThrowHeaderValidationException));
 
         Assert.Throws<HeaderValidationException>(() => StatementsDocument.Load(csv));
     }
@@ -109,9 +95,7 @@ public class LoadTests
     [Fact]
     public void WhenDateFormatIsInvalid_ShouldThrowReaderException()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
-            "2026-02-08,Store G,Ref-008,Card,-10,1109.75,Food,Invalid date format";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenDateFormatIsInvalid_ShouldThrowReaderException));
 
         ReaderException exception = Assert.Throws<ReaderException>(() => StatementsDocument.Load(csv));
         Assert.IsType<FormatException>(exception.InnerException);
@@ -120,9 +104,7 @@ public class LoadTests
     [Fact]
     public void WhenNumericValueIsInvalid_ShouldThrowTypeConverterException()
     {
-        string csv =
-            "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
-            "08/02/2026,Store H,Ref-009,Card,not-a-number,1099.75,Food,Invalid amount";
+        string csv = TestResources.GetEmbeddedTextFile(nameof(WhenNumericValueIsInvalid_ShouldThrowTypeConverterException));
 
         Assert.Throws<TypeConverterException>(() => StatementsDocument.Load(csv));
     }
