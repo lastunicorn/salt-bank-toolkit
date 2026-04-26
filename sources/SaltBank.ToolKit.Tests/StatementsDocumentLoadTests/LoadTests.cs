@@ -111,4 +111,14 @@ public class LoadTests
         Action action = () => StatementsDocument.Load(csv);
         action.Should().Throw<StatementDataException>();
     }
+
+    [Fact]
+    public void WhenTextReaderThrows_ShouldThrowStatementDocumentException()
+    {
+        using FailingTextReader failingTextReader = new();
+
+        Action action = () => StatementsDocument.Load(failingTextReader);
+        action.Should().Throw<StatementDocumentException>()
+            .WithInnerException<IOException>();
+    }
 }

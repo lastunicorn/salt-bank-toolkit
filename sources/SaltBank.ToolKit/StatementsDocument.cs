@@ -90,6 +90,10 @@ public class StatementsDocument : Collection<BankTransaction>
         {
             throw new StatementDataException(ex);
         }
+        catch (Exception ex)
+        {
+            throw new StatementDocumentException(ex);
+        }
 
         return statementsDocument;
     }

@@ -2,8 +2,15 @@ namespace DustInTheWind.SaltBank.ToolKit;
 
 public class StatementDocumentException : Exception
 {
+    private const string DefaultMessage = "The statement document is invalid.";
+
     public StatementDocumentException()
-        : base("The statement document is invalid.")
+        : base(DefaultMessage)
+    {
+    }
+
+    public StatementDocumentException(Exception innerException)
+        : base(DefaultMessage, innerException)
     {
     }
 
@@ -17,4 +24,3 @@ public class StatementDocumentException : Exception
     {
     }
 }
-
