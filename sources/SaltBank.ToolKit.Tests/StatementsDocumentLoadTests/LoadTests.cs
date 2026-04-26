@@ -6,7 +6,7 @@ namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementsDocumentLoadTests;
 public class LoadTests
 {
     [Fact]
-    public void Load_WithSingleRow_ParsesAllFields()
+    public void WhenCsvHasSingleRow_ShouldParseAllFields()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
@@ -28,7 +28,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithMultipleRows_PreservesOrder()
+    public void WhenCsvHasMultipleRows_ShouldPreserveOrder()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
@@ -43,7 +43,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithHeaderWhitespace_TrimsHeadersAndParses()
+    public void WhenHeadersContainWhitespace_ShouldTrimAndParse()
     {
         string csv =
             " Date , Counter Party , Reference , Type , Amount (RON) , Balance (RON) , Spending Category , Notes \n" +
@@ -57,7 +57,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithBlankLines_IgnoresBlankLines()
+    public void WhenCsvContainsBlankLines_ShouldIgnoreBlankLines()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n\n" +
@@ -70,7 +70,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithoutNotesColumn_UsesDefaultNotesValue()
+    public void WhenNotesColumnIsMissing_ShouldUseDefaultNotesValue()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category\n" +
@@ -83,7 +83,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithNullCsv_ThrowsArgumentNullException()
+    public void WhenCsvIsNull_ShouldThrowArgumentNullException()
     {
         Assert.Throws<ArgumentNullException>(() => StatementsDocument.Load((string)null!));
     }
@@ -91,13 +91,13 @@ public class LoadTests
     [Theory]
     [InlineData("")]
     [InlineData("   ")]
-    public void Load_WithEmptyOrWhitespaceCsv_ThrowsArgumentException(string csv)
+    public void WhenCsvIsEmptyOrWhitespace_ShouldThrowArgumentException(string csv)
     {
         Assert.Throws<ArgumentException>(() => StatementsDocument.Load(csv));
     }
 
     [Fact]
-    public void Load_WithoutRequiredHeader_ThrowsHeaderValidationException()
+    public void WhenRequiredHeaderIsMissing_ShouldThrowHeaderValidationException()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Notes\n" +
@@ -107,7 +107,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithInvalidDate_ThrowsReaderException()
+    public void WhenDateFormatIsInvalid_ShouldThrowReaderException()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
@@ -118,7 +118,7 @@ public class LoadTests
     }
 
     [Fact]
-    public void Load_WithInvalidNumericValue_ThrowsTypeConverterException()
+    public void WhenNumericValueIsInvalid_ShouldThrowTypeConverterException()
     {
         string csv =
             "Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes\n" +
