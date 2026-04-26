@@ -1,5 +1,3 @@
-using CsvHelper;
-using CsvHelper.TypeConversion;
 using DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
 
 namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementsDocumentLoadTests;
@@ -88,30 +86,29 @@ public class LoadTests
     }
 
     [Fact]
-    public void WhenRequiredHeaderIsMissing_ShouldThrowHeaderValidationException()
+    public void WhenRequiredHeaderIsMissing_ShouldThrow()
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         Action action = () => StatementsDocument.Load(csv);
-        action.Should().Throw<HeaderValidationException>();
+        action.Should().Throw<StatementHeaderException>();
     }
 
     [Fact]
-    public void WhenDateFormatIsInvalid_ShouldThrowReaderException()
+    public void WhenDateFormatIsInvalid_ShouldThrow()
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         Action action = () => StatementsDocument.Load(csv);
-        action.Should().Throw<ReaderException>()
-            .WithInnerException<FormatException>();
+        action.Should().Throw<StatementDataException>();
     }
 
     [Fact]
-    public void WhenNumericValueIsInvalid_ShouldThrowTypeConverterException()
+    public void WhenNumericValueIsInvalid_ShouldThrow()
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
         Action action = () => StatementsDocument.Load(csv);
-        action.Should().Throw<TypeConverterException>();
+        action.Should().Throw<StatementDataException>();
     }
 }

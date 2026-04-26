@@ -77,8 +77,19 @@ public class StatementsDocument : Collection<BankTransaction>
 
         StatementsDocument statementsDocument = [];
 
-        foreach (BankTransaction bankTransaction in bankTransactions)
-            statementsDocument.Add(bankTransaction);
+        try
+        {
+            foreach (BankTransaction bankTransaction in bankTransactions)
+                statementsDocument.Add(bankTransaction);
+        }
+        catch (HeaderValidationException ex)
+        {
+            throw new StatementHeaderException(ex);
+        }
+        catch (ReaderException ex)
+        {
+            throw new StatementDataException(ex);
+        }
 
         return statementsDocument;
     }
