@@ -76,25 +76,28 @@ public class StatementsDocument : Collection<BankTransaction>
 
         using CsvReader csvReader = new(textReader, csvConfiguration);
 
-        csvReader.Read();
-        csvReader.ReadHeader();
-
-        string currency = IdentifyCurrency(csvReader);
-        csvReader.Context.RegisterClassMap(new BankTransactionMap(currency));
-
-        IEnumerable<BankTransaction> bankTransactions = csvReader.GetRecords<BankTransaction>();
-
         StatementsDocument statementsDocument = [];
-        statementsDocument.Currency = currency;
 
         try
         {
-            foreach (BankTransaction bankTransaction in bankTransactions)
+            csvReader.Read();
+            csvReader.ReadHeader();
+
+            string currency = IdentifyCurrency(csvReader);
+            csvReader.Context.RegisterClassMap(new BankTransactionMap(currency));
+
+            statementsDocument.Currency = currency;
+
+            foreach (BankTransaction bankTransaction in csvReader.GetRecords<BankTransaction>())
                 statementsDocument.Add(bankTransaction);
         }
         catch (HeaderValidationException ex)
         {
             throw new StatementHeaderException(ex);
+        }
+        catch (ReaderException ex) when (ex is CsvHelper.MissingFieldException || ex.InnerException is HeaderValidationException or CsvHelper.MissingFieldException)
+        {
+            throw new StatementHeaderException(ex.InnerException);
         }
         catch (ReaderException ex)
         {
