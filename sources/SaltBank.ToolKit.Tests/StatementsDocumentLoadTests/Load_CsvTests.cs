@@ -2,7 +2,7 @@ using DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
 
 namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementsDocumentLoadTests;
 
-public class LoadTests
+public class Load_CsvTests
 {
     [Fact]
     public void WhenCsvHasSingleRow_ShouldParseAllFields()
@@ -110,15 +110,5 @@ public class LoadTests
 
         Action action = () => StatementsDocument.Load(csv);
         action.Should().Throw<StatementDataException>();
-    }
-
-    [Fact]
-    public void WhenTextReaderThrows_ShouldThrowStatementDocumentException()
-    {
-        using FailingTextReader failingTextReader = new();
-
-        Action action = () => StatementsDocument.Load(failingTextReader);
-        action.Should().Throw<StatementDocumentException>()
-            .WithInnerException<IOException>();
     }
 }

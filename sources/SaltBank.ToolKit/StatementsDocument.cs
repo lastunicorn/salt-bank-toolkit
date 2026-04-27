@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
@@ -11,6 +12,8 @@ namespace DustInTheWind.SaltBank.ToolKit;
 /// </summary>
 public class StatementsDocument : Collection<BankTransaction>
 {
+    public string Currency { get; set; }
+    
     public static StatementsDocument Load(string csv)
     {
         if (csv == null)
@@ -72,11 +75,17 @@ public class StatementsDocument : Collection<BankTransaction>
         };
 
         using CsvReader csvReader = new(textReader, csvConfiguration);
-        csvReader.Context.RegisterClassMap<BankTransactionMap>();
+
+        csvReader.Read();
+        csvReader.ReadHeader();
+
+        string currency = IdentifyCurrency(csvReader);
+        csvReader.Context.RegisterClassMap(new BankTransactionMap(currency));
 
         IEnumerable<BankTransaction> bankTransactions = csvReader.GetRecords<BankTransaction>();
 
         StatementsDocument statementsDocument = [];
+        statementsDocument.Currency = currency;
 
         try
         {
@@ -101,5 +110,25 @@ public class StatementsDocument : Collection<BankTransaction>
         }
 
         return statementsDocument;
+    }
+
+    private static string IdentifyCurrency(CsvReader csvReader)
+    {
+        string[] headers = csvReader.HeaderRecord;
+        
+        if (headers == null)
+            throw new StatementDocumentException("The CSV file must contain a header record.");
+        
+        foreach (string header in headers)
+        {
+            Match match = Regex.Match(header.Trim(), @"^Amount \((.+)\)$");
+
+            if (!match.Success)
+                continue;
+                
+            return match.Groups[1].Value;
+        }
+
+        throw new StatementDocumentException("The currency cannot by identified from the header of the CSV file.");
     }
 }

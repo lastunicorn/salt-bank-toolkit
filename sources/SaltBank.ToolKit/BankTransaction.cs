@@ -1,6 +1,9 @@
 namespace DustInTheWind.SaltBank.ToolKit;
 
-public class BankTransaction
+/// <summary>
+/// Represents a bank transaction from Salt Bank.
+/// </summary>
+public record class BankTransaction
 {
     public DateOnly Date { get; set; }
 
