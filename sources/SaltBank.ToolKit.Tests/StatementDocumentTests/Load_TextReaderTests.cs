@@ -1,6 +1,6 @@
 using DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
 
-namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementsDocumentLoadTests;
+namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementDocumentTests;
 
 public class Load_TextReaderTests
 {
@@ -9,7 +9,7 @@ public class Load_TextReaderTests
     {
         using FailingTextReader failingTextReader = new();
 
-        Action action = () => StatementsDocument.Load(failingTextReader);
+        Action action = () => StatementDocument.Load(failingTextReader);
         action.Should().Throw<StatementDocumentException>()
             .WithInnerException<IOException>();
     }

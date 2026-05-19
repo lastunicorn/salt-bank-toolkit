@@ -10,11 +10,11 @@ namespace DustInTheWind.SaltBank.ToolKit;
 /// <summary>
 /// Contains a list of bank transactions. It is rendered as a csv file.
 /// </summary>
-public class StatementsDocument : Collection<BankTransaction>
+public class StatementDocument : Collection<BankTransaction>
 {
     public string Currency { get; set; }
     
-    public static StatementsDocument Load(string csv)
+    public static StatementDocument Load(string csv)
     {
         if (csv == null)
             throw new ArgumentNullException(nameof(csv));
@@ -26,7 +26,7 @@ public class StatementsDocument : Collection<BankTransaction>
         return Load(stringReader);
     }
 
-    public static StatementsDocument LoadFile(string filePath)
+    public static StatementDocument LoadFile(string filePath)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(filePath);
 
@@ -34,7 +34,7 @@ public class StatementsDocument : Collection<BankTransaction>
         return Load(streamReader);
     }
 
-    public static StatementsDocument Load(Stream stream)
+    public static StatementDocument Load(Stream stream)
     {
         ArgumentNullException.ThrowIfNull(stream);
 
@@ -42,7 +42,7 @@ public class StatementsDocument : Collection<BankTransaction>
         return Load(streamReader);
     }
 
-    public static StatementsDocument Load(FileInfo fileInfo)
+    public static StatementDocument Load(FileInfo fileInfo)
     {
         ArgumentNullException.ThrowIfNull(fileInfo);
 
@@ -50,21 +50,21 @@ public class StatementsDocument : Collection<BankTransaction>
         return Load(streamReader);
     }
 
-    public static StatementsDocument Load(StreamReader streamReader)
+    public static StatementDocument Load(StreamReader streamReader)
     {
         ArgumentNullException.ThrowIfNull(streamReader);
 
         return Load((TextReader)streamReader);
     }
 
-    public static StatementsDocument Load(TextReader textReader)
+    public static StatementDocument Load(TextReader textReader)
     {
         ArgumentNullException.ThrowIfNull(textReader);
 
         return LoadInternal(textReader);
     }
 
-    private static StatementsDocument LoadInternal(TextReader textReader)
+    private static StatementDocument LoadInternal(TextReader textReader)
     {
         CsvConfiguration csvConfiguration = new(CultureInfo.InvariantCulture)
         {
@@ -76,7 +76,7 @@ public class StatementsDocument : Collection<BankTransaction>
 
         using CsvReader csvReader = new(textReader, csvConfiguration);
 
-        StatementsDocument statementsDocument = [];
+        StatementDocument statementDocument = [];
 
         try
         {
@@ -86,10 +86,10 @@ public class StatementsDocument : Collection<BankTransaction>
             string currency = IdentifyCurrency(csvReader);
             csvReader.Context.RegisterClassMap(new BankTransactionMap(currency));
 
-            statementsDocument.Currency = currency;
+            statementDocument.Currency = currency;
 
             foreach (BankTransaction bankTransaction in csvReader.GetRecords<BankTransaction>())
-                statementsDocument.Add(bankTransaction);
+                statementDocument.Add(bankTransaction);
         }
         catch (HeaderValidationException ex)
         {
@@ -112,7 +112,7 @@ public class StatementsDocument : Collection<BankTransaction>
             throw new StatementDocumentException(ex);
         }
 
-        return statementsDocument;
+        return statementDocument;
     }
 
     private static string IdentifyCurrency(CsvReader csvReader)

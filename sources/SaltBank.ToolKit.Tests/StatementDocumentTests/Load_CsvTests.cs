@@ -1,6 +1,6 @@
 using DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
 
-namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementsDocumentLoadTests;
+namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementDocumentTests;
 
 public class Load_CsvTests
 {
@@ -9,7 +9,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementsDocument result = StatementsDocument.Load(csv);
+        StatementDocument result = StatementDocument.Load(csv);
 
         result.Should().ContainSingle();
 
@@ -29,7 +29,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementsDocument result = StatementsDocument.Load(csv);
+        StatementDocument result = StatementDocument.Load(csv);
 
         result.Should().HaveCount(2);
         result[0].Reference.Should().Be("Ref-001");
@@ -41,7 +41,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementsDocument result = StatementsDocument.Load(csv);
+        StatementDocument result = StatementDocument.Load(csv);
 
         result.Should().ContainSingle();
         result[0].CounterParty.Should().Be("Store B");
@@ -53,7 +53,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementsDocument result = StatementsDocument.Load(csv);
+        StatementDocument result = StatementDocument.Load(csv);
 
         result.Should().HaveCount(2);
     }
@@ -63,7 +63,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementsDocument result = StatementsDocument.Load(csv);
+        StatementDocument result = StatementDocument.Load(csv);
 
         result.Should().ContainSingle();
         result[0].Notes.Should().BeEmpty();
@@ -72,7 +72,7 @@ public class Load_CsvTests
     [Fact]
     public void WhenCsvIsNull_ShouldThrowArgumentNullException()
     {
-        Action action = () => StatementsDocument.Load((string)null!);
+        Action action = () => StatementDocument.Load((string)null!);
         action.Should().Throw<ArgumentNullException>();
     }
 
@@ -81,7 +81,7 @@ public class Load_CsvTests
     [InlineData("   ")]
     public void WhenCsvIsEmptyOrWhitespace_ShouldThrow(string csv)
     {
-        Action action = () => StatementsDocument.Load(csv);
+        Action action = () => StatementDocument.Load(csv);
         action.Should().Throw<StatementDocumentException>();
     }
 
@@ -90,7 +90,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Action action = () => StatementsDocument.Load(csv);
+        Action action = () => StatementDocument.Load(csv);
         action.Should().Throw<StatementHeaderException>();
     }
 
@@ -99,7 +99,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Action action = () => StatementsDocument.Load(csv);
+        Action action = () => StatementDocument.Load(csv);
         action.Should().Throw<StatementDataException>();
     }
 
@@ -108,7 +108,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Action action = () => StatementsDocument.Load(csv);
+        Action action = () => StatementDocument.Load(csv);
         action.Should().Throw<StatementDataException>();
     }
 }

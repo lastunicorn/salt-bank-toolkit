@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="StatementsDocumentLoadTests/Load_CsvTests.resources/*.csv"/>
+        <EmbeddedResource Include="StatementDocumentTests/Load_CsvTests.resources/*.csv"/>
     </ItemGroup>
 
 </Project>
