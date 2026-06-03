@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\SaltBank.ToolKit\SaltBank.ToolKit.csproj"/>
+        <ProjectReference Include="..\SaltBank.Toolkit\SaltBank.Toolkit.csproj" />
     </ItemGroup>
 
     <ItemGroup>

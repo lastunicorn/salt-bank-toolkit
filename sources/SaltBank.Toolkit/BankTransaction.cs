@@ -1,4 +1,4 @@
-namespace DustInTheWind.SaltBank.ToolKit;
+namespace DustInTheWind.SaltBank.Toolkit;
 
 /// <summary>
 /// Represents a bank transaction from Salt Bank.

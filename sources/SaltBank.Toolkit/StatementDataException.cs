@@ -1,4 +1,4 @@
-namespace DustInTheWind.SaltBank.ToolKit;
+namespace DustInTheWind.SaltBank.Toolkit;
 
 public class StatementDataException : StatementDocumentException
 {

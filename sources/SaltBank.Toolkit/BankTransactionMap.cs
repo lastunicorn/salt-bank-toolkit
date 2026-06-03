@@ -1,6 +1,6 @@
 using CsvHelper.Configuration;
 
-namespace DustInTheWind.SaltBank.ToolKit;
+namespace DustInTheWind.SaltBank.Toolkit;
 
 internal sealed class BankTransactionMap : ClassMap<BankTransaction>
 {

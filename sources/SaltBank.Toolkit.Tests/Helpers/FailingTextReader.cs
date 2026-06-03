@@ -1,4 +1,4 @@
-namespace DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
+namespace DustInTheWind.SaltBank.Toolkit.Tests.Helpers;
 
 /// <summary>
 /// A <see cref="TextReader"/> that throws an <see cref="IOException"/> on the first read,

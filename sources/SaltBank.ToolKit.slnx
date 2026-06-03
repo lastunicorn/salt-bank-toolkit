@@ -2,7 +2,7 @@
   <Folder Name="/Common/">
     <File Path="Directory.Build.props" />
   </Folder>
-  <Project Path="SaltBank.ToolKit.Tests/SaltBank.ToolKit.Tests.csproj" />
-  <Project Path="SaltBank.ToolKit/SaltBank.ToolKit.csproj" />
+  <Project Path="SaltBank.Toolkit.Tests\SaltBank.Toolkit.Tests.csproj" />
+  <Project Path="SaltBank.Toolkit\SaltBank.Toolkit.csproj" />
   <Project Path="TestingToolkit/TestingToolkit.csproj" />
 </Solution>

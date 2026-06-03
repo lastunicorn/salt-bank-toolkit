@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
+namespace DustInTheWind.SaltBank.Toolkit.Tests.Helpers;
 
 public static class TestResources
 {

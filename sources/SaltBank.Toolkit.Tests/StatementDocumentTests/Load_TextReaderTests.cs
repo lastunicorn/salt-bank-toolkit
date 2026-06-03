@@ -1,6 +1,6 @@
-using DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
+using DustInTheWind.SaltBank.Toolkit.Tests.Helpers;
 
-namespace DustInTheWind.SaltBank.ToolKit.Tests.StatementDocumentTests;
+namespace DustInTheWind.SaltBank.Toolkit.Tests.StatementDocumentTests;
 
 public class Load_TextReaderTests
 {

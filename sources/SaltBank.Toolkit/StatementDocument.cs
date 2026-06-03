@@ -5,7 +5,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
-namespace DustInTheWind.SaltBank.ToolKit;
+namespace DustInTheWind.SaltBank.Toolkit;
 
 /// <summary>
 /// Contains a list of bank transactions. It is rendered as a csv file.

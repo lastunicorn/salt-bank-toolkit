@@ -1,4 +1,4 @@
-namespace DustInTheWind.SaltBank.ToolKit.Tests.Helpers;
+namespace DustInTheWind.SaltBank.Toolkit.Tests.Helpers;
 
 public readonly record struct FileExtension
 {
