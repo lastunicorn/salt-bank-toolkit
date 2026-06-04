@@ -9,8 +9,8 @@ public class Load_TextReaderTests
     {
         using FailingTextReader failingTextReader = new();
 
-        Action action = () => StatementDocument.Load(failingTextReader);
-        action.Should().Throw<StatementDocumentException>()
+        Action action = async () => StatementDocument.LoadAsync(failingTextReader).GetAwaiter().GetResult();
+        action.Should().Throw<DocumentLoadException>()
             .WithInnerException<IOException>();
     }
 }

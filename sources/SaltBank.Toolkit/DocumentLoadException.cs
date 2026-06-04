@@ -1,25 +1,25 @@
 namespace DustInTheWind.SaltBank.Toolkit;
 
-public class StatementDocumentException : Exception
+public class DocumentLoadException : Exception
 {
     private const string DefaultMessage = "The statement document is invalid.";
 
-    public StatementDocumentException()
+    public DocumentLoadException()
         : base(DefaultMessage)
     {
     }
 
-    public StatementDocumentException(Exception innerException)
+    public DocumentLoadException(Exception innerException)
         : base(DefaultMessage, innerException)
     {
     }
 
-    public StatementDocumentException(string message)
+    public DocumentLoadException(string message)
         : base(message)
     {
     }
 
-    public StatementDocumentException(string message, Exception innerException)
+    public DocumentLoadException(string message, Exception innerException)
         : base(message, innerException)
     {
     }

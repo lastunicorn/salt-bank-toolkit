@@ -9,7 +9,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementDocument result = StatementDocument.Load(csv);
+        StatementDocument result = StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
 
         result.Should().ContainSingle();
 
@@ -17,10 +17,10 @@ public class Load_CsvTests
         transaction.Date.Should().Be(new DateOnly(2026, 2, 1));
         transaction.CounterParty.Should().Be("Shop A");
         transaction.Reference.Should().Be("Ref-001");
-        transaction.Type.Should().Be("Card");
-        transaction.Amount.Should().BeApproximately(-15.75, 1e-10);
-        transaction.Balance.Should().BeApproximately(1200.25, 1e-10);
-        transaction.SpendingCategory.Should().Be("Groceries");
+        transaction.Type.Value.Should().Be("Card Payment");
+        transaction.Amount.Should().Be(-15.75m);
+        transaction.Balance.Should().Be(1200.25m);
+        transaction.SpendingCategory.Value.Should().Be("Groceries");
         transaction.Notes.Should().Be("Weekly shopping");
     }
 
@@ -29,7 +29,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementDocument result = StatementDocument.Load(csv);
+        StatementDocument result = StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
 
         result.Should().HaveCount(2);
         result[0].Reference.Should().Be("Ref-001");
@@ -41,11 +41,11 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementDocument result = StatementDocument.Load(csv);
+        StatementDocument result = StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
 
         result.Should().ContainSingle();
         result[0].CounterParty.Should().Be("Store B");
-        result[0].Amount.Should().BeApproximately(-30.5, 1e-10);
+        result[0].Amount.Should().Be(-30.5m);
     }
 
     [Fact]
@@ -53,7 +53,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementDocument result = StatementDocument.Load(csv);
+        StatementDocument result = StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
 
         result.Should().HaveCount(2);
     }
@@ -63,17 +63,17 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        StatementDocument result = StatementDocument.Load(csv);
+        StatementDocument result = StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
 
         result.Should().ContainSingle();
-        result[0].Notes.Should().BeEmpty();
+        result[0].Notes.Should().BeNullOrEmpty();
     }
 
     [Fact]
-    public void WhenCsvIsNull_ShouldThrowArgumentNullException()
+    public void WhenCsvIsNull_ShouldThrowArgumentException()
     {
-        Action action = () => StatementDocument.Load((string)null!);
-        action.Should().Throw<ArgumentNullException>();
+        Action action = () => StatementDocument.LoadAsync((string)null!).GetAwaiter().GetResult();
+        action.Should().Throw<ArgumentException>();
     }
 
     [Theory]
@@ -81,8 +81,8 @@ public class Load_CsvTests
     [InlineData("   ")]
     public void WhenCsvIsEmptyOrWhitespace_ShouldThrow(string csv)
     {
-        Action action = () => StatementDocument.Load(csv);
-        action.Should().Throw<StatementDocumentException>();
+        Action action = () => StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
+        action.Should().Throw<ArgumentException>();
     }
 
     [Fact]
@@ -90,8 +90,8 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Action action = () => StatementDocument.Load(csv);
-        action.Should().Throw<StatementHeaderException>();
+        Action action = () => StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
+        action.Should().Throw<DocumentLoadException>();
     }
 
     [Fact]
@@ -99,8 +99,8 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Action action = () => StatementDocument.Load(csv);
-        action.Should().Throw<StatementDataException>();
+        Action action = () => StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
+        action.Should().Throw<DocumentLoadException>();
     }
 
     [Fact]
@@ -108,7 +108,7 @@ public class Load_CsvTests
     {
         string csv = TestResources.GetEmbeddedResourceAsText(FileExtension.Csv);
 
-        Action action = () => StatementDocument.Load(csv);
-        action.Should().Throw<StatementDataException>();
+        Action action = () => StatementDocument.LoadAsync(csv).GetAwaiter().GetResult();
+        action.Should().Throw<DocumentLoadException>();
     }
 }

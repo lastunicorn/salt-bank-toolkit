@@ -7,17 +7,17 @@ public record class BankTransaction
 {
     public DateOnly Date { get; set; }
 
-    public string CounterParty { get; set; } = string.Empty;
+    public string CounterParty { get; set; }
 
-    public string Reference { get; set; } = string.Empty;
+    public string Reference { get; set; }
 
-    public string Type { get; set; } = string.Empty;
+    public TransactionType Type { get; set; }
 
-    public double Amount { get; set; }
+    public decimal Amount { get; set; }
 
-    public double Balance { get; set; }
+    public decimal Balance { get; set; }
 
-    public string SpendingCategory { get; set; } = string.Empty;
+    public SpendingCategory SpendingCategory { get; set; }
 
-    public string Notes { get; set; } = string.Empty;
+    public string Notes { get; set; }
 }

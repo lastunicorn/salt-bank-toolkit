@@ -1,3 +1,3 @@
 Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes
-01/02/2026,Shop A,Ref-001,Card,-15.75,1200.25,Groceries,Weekly shopping
+01/02/2026,Shop A,Ref-001,Card Payment,-15.75,1200.25,Groceries,Weekly shopping
 02/02/2026,Employer,Ref-002,Transfer,3000,4200.25,Salary,Monthly salary

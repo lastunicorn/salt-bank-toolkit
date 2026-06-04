@@ -1,6 +1,6 @@
 Date,Counter Party,Reference,Type,Amount (RON),Balance (RON),Spending Category,Notes
 
-04/02/2026,Store C,Ref-004,Card,-12,1157.75,Food,Lunch
+04/02/2026,Store C,Ref-004,Card Payment,-12,1157.75,Food,Lunch
 
-05/02/2026,Store D,Ref-005,Card,-8,1149.75,Food,Coffee
+05/02/2026,Store D,Ref-005,Card Payment,-8,1149.75,Food,Coffee
 
