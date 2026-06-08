@@ -16,9 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="statement.csv">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
+		<None Update="statement.csv">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 
 </Project>

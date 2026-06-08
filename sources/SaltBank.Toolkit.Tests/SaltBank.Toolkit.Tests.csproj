@@ -1,32 +1,32 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net10.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <IsPackable>false</IsPackable>
-        <AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
-        <RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<IsPackable>false</IsPackable>
+		<AssemblyName>DustInTheWind.$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>DustInTheWind.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="coverlet.collector" Version="6.0.4"/>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1"/>
-        <PackageReference Include="xunit" Version="2.9.3"/>
-        <PackageReference Include="xunit.runner.visualstudio" Version="3.1.4"/>
-        <PackageReference Include="FluentAssertions" Version="8.3.0"/>
-    </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="coverlet.collector" Version="6.0.4" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+		<PackageReference Include="xunit" Version="2.9.3" />
+		<PackageReference Include="xunit.runner.visualstudio" Version="3.1.4" />
+		<PackageReference Include="FluentAssertions" Version="8.3.0" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <Using Include="Xunit"/>
-        <Using Include="FluentAssertions"/>
-    </ItemGroup>
+	<ItemGroup>
+		<Using Include="Xunit" />
+		<Using Include="FluentAssertions" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\SaltBank.Toolkit\SaltBank.Toolkit.csproj" />
-    </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SaltBank.Toolkit\SaltBank.Toolkit.csproj" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <EmbeddedResource Include="StatementDocumentTests/Load_CsvTests.resources/*.csv"/>
-    </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="StatementDocumentTests/Load_CsvTests.resources/*.csv" />
+	</ItemGroup>
 
 </Project>

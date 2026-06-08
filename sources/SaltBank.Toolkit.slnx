@@ -1,9 +1,9 @@
 <Solution>
-  <Folder Name="/Common/">
-    <File Path="Directory.Build.props" />
-  </Folder>
-  <Project Path="SaltBank.Toolkit.Demo/SaltBank.Toolkit.Demo.csproj" />
-  <Project Path="SaltBank.Toolkit.Tests\SaltBank.Toolkit.Tests.csproj" />
-  <Project Path="SaltBank.Toolkit\SaltBank.Toolkit.csproj" />
-  <Project Path="TestingToolkit/TestingToolkit.csproj" />
+	<Folder Name="/Common/">
+		<File Path="Directory.Build.props" />
+	</Folder>
+	<Project Path="SaltBank.Toolkit.Demo/SaltBank.Toolkit.Demo.csproj" />
+	<Project Path="SaltBank.Toolkit.Tests\SaltBank.Toolkit.Tests.csproj" />
+	<Project Path="SaltBank.Toolkit\SaltBank.Toolkit.csproj" />
+	<Project Path="TestingToolkit/TestingToolkit.csproj" />
 </Solution>
