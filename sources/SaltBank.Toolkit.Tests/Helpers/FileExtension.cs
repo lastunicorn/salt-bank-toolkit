@@ -2,29 +2,29 @@ namespace DustInTheWind.SaltBank.Toolkit.Tests.Helpers;
 
 public readonly record struct FileExtension
 {
-    public static readonly FileExtension Csv = new("csv");
-    public static readonly FileExtension Json = new("json");
-    public static readonly FileExtension Txt = new("txt");
-    
-    public string Value { get; }
+	public static readonly FileExtension Csv = new("csv");
+	public static readonly FileExtension Json = new("json");
+	public static readonly FileExtension Txt = new("txt");
 
-    public FileExtension(string extension)
-    {
-        Value = extension;
-    }
+	public string Value { get; }
 
-    public override string ToString()
-    {
-        return Value;
-    }
-    
-    public static implicit operator string(FileExtension extension)
-    {
-        return extension.Value;
-    }
-    
-    public static implicit operator FileExtension(string extension)
-    {
-        return new FileExtension(extension);
-    }
+	public FileExtension(string extension)
+	{
+		Value = extension;
+	}
+
+	public override string ToString()
+	{
+		return Value;
+	}
+
+	public static implicit operator string(FileExtension extension)
+	{
+		return extension.Value;
+	}
+
+	public static implicit operator FileExtension(string extension)
+	{
+		return new FileExtension(extension);
+	}
 }
