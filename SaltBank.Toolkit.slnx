@@ -1,0 +1,6 @@
+<Solution>
+	<Project Path="sources/SaltBank.Toolkit.Demo/SaltBank.Toolkit.Demo.csproj" />
+	<Project Path="sources/SaltBank.Toolkit.Tests/SaltBank.Toolkit.Tests.csproj" />
+	<Project Path="sources/SaltBank.Toolkit/SaltBank.Toolkit.csproj" />
+	<Project Path="sources/TestingToolkit/TestingToolkit.csproj" />
+</Solution>

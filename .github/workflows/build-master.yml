@@ -24,7 +24,7 @@ jobs:
             10.0.x
 
       - name: Restore
-        run: dotnet restore ./sources/SaltBank.Toolkit.slnx --configfile ./nuget.config
+        run: dotnet restore ./SaltBank.Toolkit.slnx --configfile ./nuget.config
 
       - name: Build
-        run: dotnet build ./sources/SaltBank.Toolkit.slnx -c Release --no-restore
+        run: dotnet build ./SaltBank.Toolkit.slnx -c Release --no-restore
