@@ -1,10 +1,17 @@
 Salt Bank Toolkit
 ================================================================================
 
+
+v1.3.0
+--------------------------------------------------------------------------------
+[new   ] Exposed KnownValues static property SpendingCategory and TransactionType.
+
+
 v1.2.0
 --------------------------------------------------------------------------------
 [new   ] Throw DocumentLoadException from document load functions.
 [change] Renamed the StatementsDocument to StatementDocument.
+
 
 v1.1.0
 --------------------------------------------------------------------------------

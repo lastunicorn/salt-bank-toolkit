@@ -11,17 +11,17 @@ public sealed record class TransactionType
 	public static readonly TransactionType Transfer = new("Transfer");
 	public static readonly TransactionType TransfondSentInstant = new("TRANSFOND SENT INSTANT");
 
-	private static readonly Dictionary<string, TransactionType> KnownValues = new(StringComparer.OrdinalIgnoreCase)
-	{
-		[CardPayment.Value] = CardPayment,
-		[CardSubscription.Value] = CardSubscription,
-		[Contactless.Value] = Contactless,
-		[CurrencyTransfer.Value] = CurrencyTransfer,
-		[IntrabankPayment.Value] = IntrabankPayment,
-		[OnlinePayment.Value] = OnlinePayment,
-		[Transfer.Value] = Transfer,
-		[TransfondSentInstant.Value] = TransfondSentInstant
-	};
+	public static readonly IReadOnlyCollection<TransactionType> KnownValues =
+	[
+		CardPayment,
+		CardSubscription,
+		Contactless,
+		CurrencyTransfer,
+		IntrabankPayment,
+		OnlinePayment,
+		Transfer,
+		TransfondSentInstant
+	];
 
 	public string Value { get; }
 

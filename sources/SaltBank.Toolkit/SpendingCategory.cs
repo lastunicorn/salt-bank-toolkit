@@ -13,19 +13,19 @@ public sealed record class SpendingCategory
 	public static readonly SpendingCategory Transfers = new("TRANSFERS");
 	public static readonly SpendingCategory Transport = new("TRANSPORT");
 
-	private static readonly Dictionary<string, SpendingCategory> KnownValues = new(StringComparer.OrdinalIgnoreCase)
-	{
-		[BillsAndServices.Value] = BillsAndServices,
-		[EatingOut.Value] = EatingOut,
-		[Entertainment.Value] = Entertainment,
-		[General.Value] = General,
-		[Groceries.Value] = Groceries,
-		[Income.Value] = Income,
-		[Lifestyle.Value] = Lifestyle,
-		[Payments.Value] = Payments,
-		[Transfers.Value] = Transfers,
-		[Transport.Value] = Transport
-	};
+	public static readonly IReadOnlyCollection<SpendingCategory> KnownValues =
+	[
+		BillsAndServices,
+		EatingOut,
+		Entertainment,
+		General,
+		Groceries,
+		Income,
+		Lifestyle,
+		Payments,
+		Transfers,
+		Transport
+	];
 
 	public string Value { get; }
 
