@@ -5,6 +5,7 @@ Salt Bank Toolkit
 v1.3.0
 --------------------------------------------------------------------------------
 [new   ] Exposed KnownValues static property SpendingCategory and TransactionType.
+[new   ] Generate and publish a synbol package (.snupkg).
 
 
 v1.2.0
